@@ -19,7 +19,7 @@ function App(){
  
 
 
-  const getStatus=async ()=>{
+const getStatus=async ()=>{
     const reponse= await fetch(`http://127.0.0.1:4000/testStatus`);
     const data = await reponse.json();
     console.log(data.statusDevice);
@@ -43,47 +43,47 @@ function App(){
 
  //
 if(statusR1 === 't'){
-  statusR1=true;
+  statusR1 = true;
 }
 else{
-  statusR1=false;
+  statusR1 = false;
 }
 
 if(statusR2 === 't'){
- statusR2=true;
+ statusR2 = true;
 }
 else{
- statusR2=false;
+ statusR2 = false;
 }
 
 if(statusR3 === 't'){
-  statusR3=true;
+  statusR3 = true;
 }
 else{
-  statusR3=false;
+  statusR3 = false;
 }
 
 if(statusR4 === 't'){
-  statusR4=true;
+  statusR4 = true;
  }
  else{
-  statusR4=false;
+  statusR4 = false;
  }
 
 if(statusR5 === 't'){
-  statusR5=true;
+  statusR5 = true;
 }
 else{
-  statusR5=false;
+  statusR5 = false;
 }
  //   
-var syn1='',syn2='',syn3='',syn4='',syn5='';
+var syn1 = '',syn2 = '',syn3 = '',syn4 = '',syn5 = '';
 
  if(status1 != statusR1){
-   syn1=statusR1;
+   syn1 = statusR1;
  }
  else{
-    syn1=status1;
+    syn1 = status1;
  }
 
  if(status2 != statusR2){
@@ -132,7 +132,7 @@ const xhr = new XMLHttpRequest();
  };
 
  xhr.onerror = () => {
-   reject('Something went wrong!');
+   reject('Đã xảy ra lỗi !!!');
  };
 
  xhr.send(JSON.stringify(data));
@@ -140,7 +140,15 @@ const xhr = new XMLHttpRequest();
 return promise;
 };
 //synchronous...
-  
+  //
+  const handle = ()=>{
+  const promise = new Promise ((resolve,reject)=>{
+    
+  }
+  );
+  returnn promise;
+  }
+  //
 //handleClick
 const handleClick1=()=>{
   setStatus1(!status1);

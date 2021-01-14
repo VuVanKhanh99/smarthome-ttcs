@@ -3,24 +3,18 @@ const mqtt=require('mqtt');
 const os=require('os');
 const express=require('express');
 const router = express.Router();
-//const app=express();
-//
 const thingsboardHost = "demo.thingsboard.io";
-// Reads the access token from arguments
 const accessToken = 'yD1EeBV5HpD4IAZChR8g';
 
-// Default topics. See http://thingsboard.io/docs/reference/mqtt-api/ for more details.
 const attributesTopic = 'v1/devices/me/attributes';
 const telemetryTopic = 'v1/devices/me/telemetry';
 const attributesRequestTopic = 'v1/devices/me/attributes/request/1';
-//const attributesResponseTopic = attributesRequestTopic.replace('request', 'response');
 const attributesResponseTopic = 'v1/devices/me/attributes/response/1';
 
-// Initialization of mqtt client using Thingsboard host and device access token
 console.log('Connecting to: %s using access token: %s', thingsboardHost, accessToken);
 var client = mqtt.connect('mqtt://' + thingsboardHost, {username: accessToken});
 
-const test='v1/devices/me/attributes/response/3e85b630-28a4-11eb-85ee-f936949cce2a';
+//const test='v1/devices/me/attributes/response/3e85b630-28a4-11eb-85ee-f936949cce2a';
 var array=[];
 
 var i=0;
@@ -28,7 +22,7 @@ var appState,R1,R2;
 var statusDevice='';
 // Telemetry upload is once per 5 seconds by default;
 
-var currentFrequency =20;
+var currentFrequency =2;
 
 //
 var uploadInterval;
@@ -64,7 +58,7 @@ client.on('connect', function () {
     }));
     
     console.log('Uploading OS stats with interval %s (sec)...', currentFrequency);
-    uploadInterval = setInterval(uploadStats, currentFrequency *1000);
+    //uploadInterval = setInterval(uploadStats, currentFrequency *1000);
 });
 
 client.on('message', function (topic, message)  {
@@ -105,8 +99,8 @@ router.get('/',function(req,res,next){
 function rescheduleStatsUpload(uploadFrequency) {
     clearInterval(uploadInterval);
     currentFrequency = uploadFrequency;
-    console.log('Uploading OS stats with new interval %s (sec)...', currentFrequency);
-    uploadInterval = setInterval(uploadStats, currentFrequency * 1000);
+  //  console.log('Uploading OS stats with new interval %s (sec)...', currentFrequency);
+  //  uploadInterval = setInterval(uploadStats, currentFrequency * 1000);
 }
 
 // Upload OS stats using 'v1/devices/me/telemetry' MQTT topic
@@ -115,7 +109,7 @@ function uploadStats() {
     data.type = os.type();
     data.uptime = os.uptime();
     data.mem = os.freemem() / os.totalmem();
-    // console.log('Publishing OS info & stats: %s', JSON.stringify(data));
+     console.log('Publishing OS info & stats: %s', JSON.stringify(data));
     client.publish(telemetryTopic, JSON.stringify(data));
 }
 
